@@ -1,0 +1,39 @@
+import { useState } from "react";
+import "./styles.css";
+
+function RadioButtons({values, currentValue, onChange}) {
+
+  return <div>
+    {values.map((value, index) => <div key={index}>
+      Option {value}:
+      <input type="radio" checked={currentValue===value} onChange={() => {onChange(value)}} />
+    </div>)}
+  </div>
+}
+
+export default function App() {
+  const [radioValue, setRadioValue] = useState("0")
+  const [screenSize, setScreenSize] = useState("small")
+
+  return (
+    <div className="App">
+      <h1>The selected value is: {radioValue}</h1>
+      <h1>The selected value is: {screenSize}</h1>
+      <RadioButtons values={["small", "medium", "large"]} currentValue={screenSize} onChange={value => setScreenSize(value)} />
+      <div><label>
+      Option 0:
+      <input type="radio" value="0" checked={radioValue==="0"} onChange={() => {setRadioValue("0")}} />
+      </label></div>
+      <div>
+      <label>
+        Option 1: 
+        <input type="radio" value="1" checked={radioValue==="1"} onChange={() => {setRadioValue("1")}} />
+      </label>
+      </div>
+      <label>
+        Option 2: 
+        <input type="radio" value="2" checked={radioValue==="2"} onChange={() => {setRadioValue("2")}} />
+      </label>
+    </div>
+  );
+}
