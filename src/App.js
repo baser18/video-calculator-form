@@ -1,113 +1,122 @@
 import "./index"
+
 import React, {useState} from "react";
 
 function App() {
-  //reactive variable that can change
-  const [count, setCount] = useState(() => {return 0})
-
-  //changeTime variables -- had to make them global so I can access them in other functions
-  var fottageEdit = document.getElementById('ftEdit');
-  var vlogStyle = document.getElementById('vStyle');
-  var snippet_1 = document.getElementById('S5min');
-  var snippet_2 = document.getElementById('S5_10min');
-  var snippet_3 = document.getElementById('S10min');
-  var animation_1 = document.getElementById('A1min');
-  var animation_2 = document.getElementById('A2_5min');
-  var animation_3 = document.getElementById('A3min');
-  var screenRecording_1 = document.getElementById('SR2min');
-  var screenRecording_2 = document.getElementById('SR2_5min');
-  var screenRecording_3 = document.getElementById('SR5min');
-
-  // changeTimeSize variables
-   var squareBtn = document.getElementById('squareBtn');
-  var landscapeBtn = document.getElementById('landscapeBtn');
-  var portraitBtn = document.getElementById('portraitBtn');
-
-  function changeTime(){
-
-    if (fottageEdit.checked){
-      var fottageEditTime = document.getElementById('ftEdit').value
-      setCount(parseInt(fottageEditTime))
-    }
-    else if(vlogStyle.checked){
-      var vlogStyleTime = document.getElementById('vStyle').value
-      setCount(parseInt(vlogStyleTime))
-    }
-    else if (snippet_1.checked){
-      var snippet_1Time = document.getElementById('S5min').value
-      setCount(parseInt(snippet_1Time))
-    }
-    else if (snippet_2.checked){
-      var snippet_2Time = document.getElementById('S5_10min').value
-      setCount(parseInt(snippet_2Time))
-    }
-    else if (snippet_3.checked){
-      var snippet_3Time = document.getElementById('S10min').value
-      setCount(parseInt(snippet_3Time))
-    }
-    else if (animation_1.checked){
-      var animation_1Time = document.getElementById('A1min').value
-      setCount(parseInt(animation_1Time))
-    }
-    else if (animation_2.checked){
-      var animation_2Time = document.getElementById('A2_5min').value
-      setCount(parseInt(animation_2Time))
-    }
-    else if (animation_3.checked){
-      var animation_3Time = document.getElementById('A3min').value
-      setCount(parseInt(animation_3Time))
-    }
-    else if (screenRecording_1.checked){
-      var screenRecording_1Time = document.getElementById('SR2min').value
-      setCount(parseInt(screenRecording_1Time))
-    }
-    else if (screenRecording_2.checked){
-      var screenRecording_2Time = document.getElementById('SR2_5min').value
-      setCount(parseInt(screenRecording_2Time))
-    }
-    else if (screenRecording_3.checked){
-      var screenRecording_3Time = document.getElementById('SR5min').value
-      setCount(parseInt(screenRecording_3Time))
-    } 
-  }
-
   
-  function changeTimeSize (){
-    if ((squareBtn.checked && landscapeBtn.checked)|| (squareBtn.checked && portraitBtn.checked) || (landscapeBtn.checked && portraitBtn.checked) ){
+  const [radioValue, setRadioValue] = useState("0")
+  const [videoSize, setVideoSize] = useState("0")
+  const [subtitles, setSubtitles] = useState("0")
+  const [animation, setAnimation] = useState("0")
+  const [totalValue, setTotalValue] = useState("0")
+  const [isLoading, setIsLoading] = useState(false)
 
-      if(snippet_1.checked){
-        setCount(prevCount => prevCount + 2 )
-      }
-      else if (snippet_2.checked){
-        setCount(prevCount => prevCount + 3 )
-      }
-      else if (snippet_3.checked){
-        setCount(prevCount => prevCount + 4 )
-      }
-      else if (animation_1.checked){
-        setCount(prevCount => prevCount + 5 )
-      }
-      else if (animation_2.checked){
-        setCount(prevCount => prevCount + 6 )
-      }
-      else if (animation_3.checked){
-        setCount(prevCount => prevCount + 10 )
-      }
-      else if (screenRecording_1.checked){
-        setCount(prevCount => prevCount + 3 )
-      }
-      else if (screenRecording_2.checked){
-        setCount(prevCount => prevCount + 4 )
-      }
-      else if (screenRecording_3.checked){
-        setCount(prevCount => prevCount + 5 )
-      }
+
+
+  function calculateVideoSize(){
+    if(document.getElementById('snippet_1').checked){ 
+      setVideoSize(2)
+    }
+    else if (document.getElementById('snippet_2').checked){
+      setVideoSize(3)
+    }
+    else if (document.getElementById('snippet_3').checked){
+      setVideoSize(4)
+    }
+    else if (document.getElementById('animation_1').checked){
+      setVideoSize(5)
+    }
+    else if (document.getElementById('animation_2').checked){
+      setVideoSize(6)
+    }
+    else if (document.getElementById('animation_3').checked){
+      setVideoSize(10)
+    }
+    else if (document.getElementById('screenRecording_1').checked){
+      setVideoSize(3)
+    }
+    else if (document.getElementById('screenRecording_2').checked){
+      setVideoSize(4)
+    }
+    else if (document.getElementById('screenRecording_3').checked){
+      setVideoSize(5)
     }
   }
+
+  function changeTimeSize (){
+    if (document.getElementById('squareBtn').checked && document.getElementById('landscapeBtn').checked){
+      calculateVideoSize();
+    }else if (document.getElementById('squareBtn').checked && document.getElementById('portraitBtn').checked){
+      calculateVideoSize();
+    }else if (document.getElementById('landscapeBtn').checked && document.getElementById('portraitBtn').checked){
+      calculateVideoSize();
+    }else if(document.getElementById('landscapeBtn').checked && document.getElementById('portraitBtn').checked && document.getElementById('squareBtn').checked){ //this doesn't work, find fix
+      setVideoSize(videoSize + 1); 
+    }else{
+      setVideoSize(0)
+    }
+  }
+
+  function addSubtitleTime(){ 
+    if (document.getElementById('animation_1') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else if (document.getElementById('animation_2') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else if (document.getElementById('animation_3') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else if (document.getElementById('screenRecording_1') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else if (document.getElementById('screenRecording_2') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else if (document.getElementById('screenRecording_3') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else if (document.getElementById('footage_edit') && document.getElementById('subtitle_Y').checked){
+      setSubtitles(1)
+    }
+    else{
+      setSubtitles(0)
+    }
+  }
+
+  function addAnimationTime(){
+    if(document.getElementById('snippet_1').checked && document.getElementById('animatedTitle_Y')){ 
+      setAnimation(1)
+    }
+    else if(document.getElementById('snippet_2').checked && document.getElementById('animatedTitle_Y')){ 
+      setAnimation(1)
+    }
+    else if(document.getElementById('snippet_3').checked && document.getElementById('animatedTitle_Y')){ 
+      setAnimation(1)
+    }
+    else if (document.getElementById('screenRecording_1').checked && document.getElementById('animatedTitle_Y')){
+      setAnimation(2)
+    }
+    else if (document.getElementById('screenRecording_2').checked && document.getElementById('animatedTitle_Y')){
+      setAnimation(2)
+    }
+    else if (document.getElementById('screenRecording_3').checked && document.getElementById('animatedTitle_Y')){
+      setAnimation(2)
+    }
+    else if (document.getElementById('fottage_edit').checked && document.getElementById('animatedTitle_Y')){
+      setAnimation(3)
+    }
+    else{
+      setAnimation(0)
+    }
+  }
+
+
 
   return (
     
     <div className="App">
+
       <div>
         <h1>Video breifing</h1>
         <h2>The aim of this page is to provide you with a process and timescale for your video brief</h2>
@@ -117,83 +126,97 @@ function App() {
 
       </div>
       
-      <form class = "form label" >
-        <selection class = "form label">
-      <div className="ks-cboxtags" onChange={changeTime}><label>Please select video type</label>
       
-        <ul className="ks-cboxtag"><image></image>
-          <li><input type="radio" id="ftEdit" name="radio_1"  value= '10' className="btnBackground"/><label for="checkbox_1_1">Footage Edit</label></li>
-          
-        </ul>
+      <div className="ks-cboxtags" ><label>Please select video type</label>
 
-        <ul className="ks-cboxtag"><label></label>
-          <li><input type="radio" id="vStyle" name="radio_1"  value="14"/><label for="checkbox_1_2"> Vlog Style </label></li>
-        </ul>
+        <div>
+          <input id="footage_edit" type="radio" name="radio_1" checked={radioValue==="5"} onClick={() => {setRadioValue("5")}} /><label>Footage Edit</label>
+          <input type="radio" value="14" name="radio_1"checked={radioValue==="14"} onClick={() => {setRadioValue("14")}} /><label>Vlog Style</label>
+        </div> 
+          
 
         <label for="touch" ><span class="text">Snippets</span></label>
-        <input type="checkbox" id="touch"/>
-        <ul class="slide">
-          <li><input type="radio" id ="S5min" name="radio_1" value="5" /><label class="text">Less than 5 min </label></li>
-          <li><input type="radio" id ="S5_10min" name="radio_1" value="10"/><label for="checkbox_2">5 - 10 min</label></li>
-          <li><input type="radio" id ="S10min" name="radio_1" value="13"/><label for="checkbox_3">10+ min</label></li>
-        </ul>
+        <div>
+          <input id="snippet_1" type="radio" value="5" name="radio_1" checked={radioValue==="5"} onClick={() => {setRadioValue("5")}} /><label>Less than 5 min</label>
+          <input id="snippet_2" type="radio" value="10" name="radio_1"checked={radioValue==="10"} onClick={() => {setRadioValue("10")}} /><label>5 - 10 min</label>
+          <input id="snippet_3" type="radio" value="13" name="radio_1"checked={radioValue==="13"} onClick={() => {setRadioValue("13")}} /><label>10+ min</label>
+        </div>
         
 
         <label for="touch1"><span>Animation</span></label>
-        <input type="checkbox" id="touch1"/>
-        <ul class="slide">
-          <li><input type="radio" id ="A1min" name="radio_1" value="7"/><label for="checkbox_4">less 1 min </label></li>
-          <li><input type="radio" id ="A2_5min" name="radio_1" value="15"/><label for="checkbox_5">2 - 5 min</label></li>
-          <li><input type="radio" id ="A3min"name="radio_1" value="20"/><label for="checkbox_6">3+ min</label></li>
-        </ul>
+        <div>
+          <input id="animation_1" type="radio" value="7" name="radio_1"checked={radioValue==="7"} onClick={() => {setRadioValue("7")}} /><label>less 1 min</label>
+          <input id="animation_2" type="radio" value="15" name="radio_1"checked={radioValue==="15"} onClick={() => {setRadioValue("15")}} /><label>2 - 5 min</label>
+          <input id="animation_3" type="radio" value="20" name="radio_1"checked={radioValue==="20"} onClick={() => {setRadioValue("20")}} /><label>3+ min</label>
+        </div>
         
 
         <label for="touch2"><span>Screen Recording</span></label>
-        <input type="checkbox" id="touch2"/>
-        <ul class="slide">
-          <li><input type="radio" id ="SR2min"name="radio_1" value="5"/><label for="checkbox_7">0 - 2 min </label></li>
-          <li><input type="radio" id ="SR2_5min"name="radio_1" value="7"/><label for="checkbox_8">2 - 5 min</label></li>
-          <li><input type="radio" id ="SR5min"name="radio_1" value="13"/><label for="checkbox_9">5+ min</label></li>
-        </ul>
+        <div>
+          <input id="screenRecording_1" type="radio" value="5" name="radio_1" checked={radioValue==="5"} onClick={() => {setRadioValue("5")}} /><label>0 - 2 min</label>
+          <input id="screenRecording_2" type="radio" value="7" name="radio_1"checked={radioValue==="7"} onClick={() => {setRadioValue("7")}} /><label>2 - 5 min</label>
+          <input id="screenRecording_3" type="radio" value="13" name="radio_1"checked={radioValue==="13"} onClick={() => {setRadioValue("13")}} /><label>5+ min</label>
+        </div>
 
       </div>
-      </selection>
+      
+      <br></br>
 
-      <selection class = "form label">
-      <div className="btnBackgroun"/*onChange={changeTimeSize}*/><label>What size(s)?</label>
-        <input id="squareBtn" name="checkbox_10" type="checkbox" value=""/>
-        <span>Square</span>
-        <input id="landscapeBtn" name="checkbox_11" type="checkbox"/>
-        <span>Landscape</span>
-        <input id="portraitBtn" name="checkbox_12" type="checkbox"/>
-        <span>Portrait</span>
+      <label>What sizes?</label>
+        <div onClick={changeTimeSize}>
+          <input id="squareBtn" name="checkbox_10" type="checkbox" value=""/>
+          <span>Square</span>
+          <input id="landscapeBtn" name="checkbox_11" type="checkbox"/>
+          <span>Landscape</span>
+          <input id="portraitBtn" name="checkbox_12" type="checkbox"/>
+          <span>Portrait</span>
+        </div>
+      
+     
+      <br></br>
+      
+      <label>Subtitles</label>
+        <div onClick={addSubtitleTime}>
+          <input id="subtitle_Y" name="radio_2" type="radio"/>
+          <span>Yes</span>
+          <input id="subtitle_N" name="radio_2" type="radio"/>
+          <span>No</span>
+        </div>
+      
+      
+      <br></br>
+      
+      <label>Animated titles?</label>
+        <div onClick={addAnimationTime}>
+          <input id="animatedTitle_Y" name="radio_3" type="radio"/>
+          <span>Yes</span>
+          <input id="animatedTitle_N" name="radio_3" type="radio"/>
+          <span>No</span>
+        </div>
+      
+      
+      <br></br>
+
+      <span>{radioValue}--</span>
+      <span>{videoSize}--</span>
+      <span>{subtitles}--</span>
+      <span>{animation}</span>
+
+      <br></br>
+
+     <div>
+      <span>Total:</span>
       </div>
-      </selection>
-
-      <selection class = "form label">
-      <div className="ks-cboxtag"><label>Subtitles</label>
-        <input name="radio_2" type="radio"/>
-        <span>Yes</span>
-        <input name="radio_2" type="radio"checked/>
-        <span>No</span>
+      <div>
+        <button>Calculate</button>
       </div>
-      </selection>
-
-      <selection class = "form label">
-      <div className="ks-cboxtag"><label>Animated titles?</label>
-        <input name="radio_3" type="radio"/>
-        <span>Yes</span>
-        <input name="radio_3" type="radio"checked/>
-        <span>No</span>
-      </div>
-      </selection>
-
-      <span>{count}</span>
+      
 
       <div>
         <button>Reset</button>
       </div>
-      </form>
+      
+      
     </div>
     
   );
