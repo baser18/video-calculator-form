@@ -9,7 +9,7 @@ function App() {
   const [subtitles, setSubtitles] = useState("0")
   const [animation, setAnimation] = useState("0")
   const [totalValue, setTotalValue] = useState("0")
-  const [isLoading, setIsLoading] = useState(false)
+
 
 
 
@@ -51,11 +51,12 @@ function App() {
     }else if (document.getElementById('landscapeBtn').checked && document.getElementById('portraitBtn').checked){
       calculateVideoSize();
     }else if(document.getElementById('landscapeBtn').checked && document.getElementById('portraitBtn').checked && document.getElementById('squareBtn').checked){ //this doesn't work, find fix
-      setVideoSize(videoSize + 1); 
+      setVideoSize(parseInt(videoSize) + 1)
     }else{
-      setVideoSize(0)
+    setVideoSize(0)
     }
   }
+  
 
   function addSubtitleTime(){ 
     if (document.getElementById('animation_1') && document.getElementById('subtitle_Y').checked){
@@ -106,11 +107,21 @@ function App() {
     else if (document.getElementById('fottage_edit').checked && document.getElementById('animatedTitle_Y')){
       setAnimation(3)
     }
-    else{
+    else if (document.getElementById('animatedTitle_N').checked) {
+      setAnimation(0)
+    }else{
       setAnimation(0)
     }
   }
 
+  function addTotalValue(){
+    const sumValue = (parseInt(radioValue) + parseInt(videoSize) + parseInt(subtitles) + parseInt(animation))
+    setTotalValue(sumValue)
+  }
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
 
   return (
@@ -125,45 +136,46 @@ function App() {
         <button className="btnBackground">Begin</button>
 
       </div>
-      
+    
       
       <div className="ks-cboxtags" ><label>Please select video type</label>
 
         <div>
-          <input id="footage_edit" type="radio" name="radio_1" checked={radioValue==="5"} onClick={() => {setRadioValue("5")}} /><label>Footage Edit</label>
-          <input type="radio" value="14" name="radio_1"checked={radioValue==="14"} onClick={() => {setRadioValue("14")}} /><label>Vlog Style</label>
+          <input id="footage_edit" type="radio" name="radio_1"  onClick={() => {setRadioValue("5")}} /><label>Footage Edit</label>   
+          <input type="radio" value="14" name="radio_1" onClick={() => {setRadioValue("14")}} /><label>Vlog Style</label>
         </div> 
           
 
         <label for="touch" ><span class="text">Snippets</span></label>
         <div>
-          <input id="snippet_1" type="radio" value="5" name="radio_1" checked={radioValue==="5"} onClick={() => {setRadioValue("5")}} /><label>Less than 5 min</label>
-          <input id="snippet_2" type="radio" value="10" name="radio_1"checked={radioValue==="10"} onClick={() => {setRadioValue("10")}} /><label>5 - 10 min</label>
-          <input id="snippet_3" type="radio" value="13" name="radio_1"checked={radioValue==="13"} onClick={() => {setRadioValue("13")}} /><label>10+ min</label>
+          <input id="snippet_1" type="radio" value="5" name="radio_1"  onClick={() => {setRadioValue("5")}} /><label>Less than 5 min</label>
+          <input id="snippet_2" type="radio" value="10" name="radio_1" onClick={() => {setRadioValue("10")}} /><label>5 - 10 min</label>
+          <input id="snippet_3" type="radio" value="13" name="radio_1" onClick={() => {setRadioValue("13")}} /><label>10+ min</label>
         </div>
         
 
         <label for="touch1"><span>Animation</span></label>
         <div>
-          <input id="animation_1" type="radio" value="7" name="radio_1"checked={radioValue==="7"} onClick={() => {setRadioValue("7")}} /><label>less 1 min</label>
-          <input id="animation_2" type="radio" value="15" name="radio_1"checked={radioValue==="15"} onClick={() => {setRadioValue("15")}} /><label>2 - 5 min</label>
-          <input id="animation_3" type="radio" value="20" name="radio_1"checked={radioValue==="20"} onClick={() => {setRadioValue("20")}} /><label>3+ min</label>
+          <input id="animation_1" type="radio" value="7" name="radio_1" onClick={() => {setRadioValue("7")}} /><label>less 1 min</label>
+          <input id="animation_2" type="radio" value="15" name="radio_1" onClick={() => {setRadioValue("15")}} /><label>2 - 5 min</label>
+          <input id="animation_3" type="radio" value="20" name="radio_1" onClick={() => {setRadioValue("20")}} /><label>3+ min</label>
         </div>
         
 
         <label for="touch2"><span>Screen Recording</span></label>
         <div>
-          <input id="screenRecording_1" type="radio" value="5" name="radio_1" checked={radioValue==="5"} onClick={() => {setRadioValue("5")}} /><label>0 - 2 min</label>
-          <input id="screenRecording_2" type="radio" value="7" name="radio_1"checked={radioValue==="7"} onClick={() => {setRadioValue("7")}} /><label>2 - 5 min</label>
-          <input id="screenRecording_3" type="radio" value="13" name="radio_1"checked={radioValue==="13"} onClick={() => {setRadioValue("13")}} /><label>5+ min</label>
+          <input id="screenRecording_1" type="radio" value="5" name="radio_1"  onClick={() => {setRadioValue("5")}} /><label>0 - 2 min</label>
+          <input id="screenRecording_2" type="radio" value="7" name="radio_1" onClick={() => {setRadioValue("7")}} /><label>2 - 5 min</label>
+          <input id="screenRecording_3" type="radio" value="13" name="radio_1" onClick={() => {setRadioValue("13")}} /><label>5+ min</label>
         </div>
 
       </div>
       
+
       <br></br>
 
       <label>What sizes?</label>
-        <div onClick={changeTimeSize}>
+        <div onChange={changeTimeSize}>
           <input id="squareBtn" name="checkbox_10" type="checkbox" value=""/>
           <span>Square</span>
           <input id="landscapeBtn" name="checkbox_11" type="checkbox"/>
@@ -204,19 +216,18 @@ function App() {
 
       <br></br>
 
-     <div>
-      <span>Total:</span>
-      </div>
       <div>
-        <button>Calculate</button>
+      <span>Total: {totalValue} </span>
       </div>
-      
 
       <div>
-        <button>Reset</button>
+        <button onClick={addTotalValue}>Calculate</button>
       </div>
-      
-      
+
+      <div>
+        <button onClick={refreshPage}>Reset</button>
+      </div>
+    
     </div>
     
   );
