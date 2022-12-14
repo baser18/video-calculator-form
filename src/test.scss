@@ -1,0 +1,69 @@
+:root {
+    --gray: #636e72;
+    --dark-gray: #2d3436;
+    --light-gray: #b2bec3;
+    --x-light-gray: #dfe6e9;
+    --gradient: linear-gradient(#fdcb6e, #ffeaa7);
+    --cognism-background: #D9D8FF;
+  }
+  body {
+    background: var(--x-light-gray);
+    color: var(--gray);
+  }
+  main {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+  }
+  section {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    background: var(--dark-gray);
+    color: var(--light-gray);
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.26);
+  }
+  input,
+  label {
+    cursor: pointer;
+  }
+  
+  /*
+    flexbox here to align the input
+  */
+  label {
+    font-size: 1.5em;
+    &:hover{
+      color: var(--x-light-gray);
+    }
+  }
+  /* CORE STYLES */
+  input {
+    appearance: none;
+    width: 1em;
+    height: 1em;
+    border: 0.1em solid var(--light-gray);
+    font: inherit;
+    margin-bottom: -0.125em; // to align with text
+    &[type="radio"] {
+      border-radius: 50%;
+    }
+    &[type="checkbox"] {
+      border-radius: .25em;
+    }
+    &:checked {
+      border-color: transparent;
+      background: var(--gradient) border-box;
+      box-shadow: 0 0 0 0.1em inset var(--dark-gray);
+    }
+    &:not(:checked):hover {
+      border-color: transparent;
+      background: linear-gradient(var(--dark-gray), var(--dark-gray)) padding-box,
+        var(--gradient) border-box;
+    }
+  }
+  

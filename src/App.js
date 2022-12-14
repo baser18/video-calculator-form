@@ -1,4 +1,5 @@
-import "./index"
+import "./test.scss"
+
 
 import React, {useState} from "react";
 
@@ -138,74 +139,75 @@ function App() {
       </div>
     
       
-      <div className="ks-cboxtags" ><label>Please select video type</label>
+      <div ><h2>Please select video type</h2>
 
+      <section>
         <div>
           <input id="footage_edit" type="radio" name="radio_1"  onClick={() => {setRadioValue("5")}} /><label>Footage Edit</label>   
+          <br></br>
           <input type="radio" value="14" name="radio_1" onClick={() => {setRadioValue("14")}} /><label>Vlog Style</label>
         </div> 
-          
+      </section>
+      
 
-        <label for="touch" ><span class="text">Snippets</span></label>
+        <h2><span class="text">Snippets</span></h2>
+        <section>
         <div>
           <input id="snippet_1" type="radio" value="5" name="radio_1"  onClick={() => {setRadioValue("5")}} /><label>Less than 5 min</label>
           <input id="snippet_2" type="radio" value="10" name="radio_1" onClick={() => {setRadioValue("10")}} /><label>5 - 10 min</label>
           <input id="snippet_3" type="radio" value="13" name="radio_1" onClick={() => {setRadioValue("13")}} /><label>10+ min</label>
         </div>
-        
+        </section>
 
-        <label for="touch1"><span>Animation</span></label>
+        <h2 for="touch1"><span>Animation</span></h2>
+        <section>
         <div>
           <input id="animation_1" type="radio" value="7" name="radio_1" onClick={() => {setRadioValue("7")}} /><label>less 1 min</label>
           <input id="animation_2" type="radio" value="15" name="radio_1" onClick={() => {setRadioValue("15")}} /><label>2 - 5 min</label>
           <input id="animation_3" type="radio" value="20" name="radio_1" onClick={() => {setRadioValue("20")}} /><label>3+ min</label>
         </div>
-        
+        </section>
 
-        <label for="touch2"><span>Screen Recording</span></label>
+        <h2><span>Screen Recording</span></h2>
+        <section>
         <div>
           <input id="screenRecording_1" type="radio" value="5" name="radio_1"  onClick={() => {setRadioValue("5")}} /><label>0 - 2 min</label>
           <input id="screenRecording_2" type="radio" value="7" name="radio_1" onClick={() => {setRadioValue("7")}} /><label>2 - 5 min</label>
           <input id="screenRecording_3" type="radio" value="13" name="radio_1" onClick={() => {setRadioValue("13")}} /><label>5+ min</label>
         </div>
-
+        </section>   
       </div>
       
-
       <br></br>
 
-      <label>What sizes?</label>
+      <h2>What sizes?</h2>
+      <section>
         <div onChange={changeTimeSize}>
-          <input id="squareBtn" name="checkbox_10" type="checkbox" value=""/>
-          <span>Square</span>
-          <input id="landscapeBtn" name="checkbox_11" type="checkbox"/>
-          <span>Landscape</span>
-          <input id="portraitBtn" name="checkbox_12" type="checkbox"/>
-          <span>Portrait</span>
+          <label><input id="squareBtn" name="checkbox_10" type="checkbox" value=""/> Square </label>
+          <label><input id="landscapeBtn" name="checkbox_11" type="checkbox"/> Landscape </label>
+          <label><input id="portraitBtn" name="checkbox_12" type="checkbox"/> Portrait </label>
         </div>
-      
+      </section>
      
       <br></br>
       
-      <label>Subtitles</label>
+      <h2>Subtitles</h2>
+      <section>
         <div onClick={addSubtitleTime}>
-          <input id="subtitle_Y" name="radio_2" type="radio"/>
-          <span>Yes</span>
-          <input id="subtitle_N" name="radio_2" type="radio"/>
-          <span>No</span>
+          <label><input id="subtitle_Y" name="radio_2" type="radio"/> Yes </label>
+          <label><input id="subtitle_N" name="radio_2" type="radio"/> No </label>
         </div>
-      
+      </section>
       
       <br></br>
       
-      <label>Animated titles?</label>
+      <h2>Animated titles?</h2>
+      <section>
         <div onClick={addAnimationTime}>
-          <input id="animatedTitle_Y" name="radio_3" type="radio"/>
-          <span>Yes</span>
-          <input id="animatedTitle_N" name="radio_3" type="radio"/>
-          <span>No</span>
+        <label><input id="animatedTitle_Y" name="radio_3" type="radio"/> Yes </label>
+        <label><input id="animatedTitle_N" name="radio_3" type="radio"/> No </label>
         </div>
-      
+      </section>
       
       <br></br>
 
