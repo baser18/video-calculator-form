@@ -5,10 +5,13 @@
     --x-light-gray: #dfe6e9;
     --gradient: linear-gradient(#fdcb6e, #ffeaa7);
     --cognism-background: #D9D8FF;
+    --textcolor: #8886FF;
+    --myFont: Roobert;
   }
   body {
     background: var(--x-light-gray);
     color: var(--gray);
+    font-family: var(--myFont);
   }
   main {
     
@@ -64,6 +67,12 @@
       border-color: transparent;
       background: linear-gradient(var(--dark-gray), var(--dark-gray)) padding-box,
         var(--gradient) border-box;
+    }
+
+    /*buttons*/
+    button {
+      color : var(--textcolor);
+      border-radius : 97px 97px 0px 97px;
     }
   }
   

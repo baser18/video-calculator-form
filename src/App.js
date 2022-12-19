@@ -1,5 +1,5 @@
 import "./test.scss"
-
+import Button from '@mui/material/Button';
 
 import React, {useState} from "react";
 
@@ -86,7 +86,7 @@ function App() {
     }
   }
 
-  function addAnimationTime(){
+  function addAnimationTime(){// fix
     if(document.getElementById('snippet_1').checked && document.getElementById('animatedTitle_Y')){ 
       setAnimation(1)
     }
@@ -227,6 +227,7 @@ function App() {
       </div>
 
       <div>
+      <Button variant="outlined" onClick={refreshPage}>Reset 2</Button>
         <button onClick={refreshPage}>Reset</button>
       </div>
     
