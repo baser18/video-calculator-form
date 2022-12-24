@@ -1,5 +1,11 @@
 import "./test.scss"
 import Button from '@mui/material/Button';
+import { Checkbox } from "@mui/material";
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import React, {useState} from "react";
 
@@ -183,12 +189,39 @@ function App() {
       <h2>What sizes?</h2>
       <section>
         <div onChange={changeTimeSize}>
-          <label><input id="squareBtn" name="checkbox_10" type="checkbox" value=""/> Square </label>
-          <label><input id="landscapeBtn" name="checkbox_11" type="checkbox"/> Landscape </label>
-          <label><input id="portraitBtn" name="checkbox_12" type="checkbox"/> Portrait </label>
+          <label><Checkbox id="squareBtn" name="checkbox_10" size="large" label="Square lab"  /> Square 2</label>
+          <label><Checkbox id="landscapeBtn" name="checkbox_11" size="large" label="Square lab"  /> Landscape 2</label>
+          <label><Checkbox id="portraitBtn" name="checkbox_12" size="large" label="Square lab"  /> Portrait 2</label>
         </div>
       </section>
-     
+
+      
+      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+        <FormLabel component="legend">What Sizes?</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox id="squareBtn" onChange={changeTimeSize} name="checkbox_10" />
+            }
+            label="Square 3"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox id="landscapeBtn" onChange={changeTimeSize} name="checkbox_11" />
+            }
+            label="Landscape 3"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox id="portraitBtn" onChange={changeTimeSize} name="checkbox_13" />
+            }
+            label="Portrait 3"
+          />
+        </FormGroup>
+        <FormHelperText>Please select 1 or more</FormHelperText>
+      </FormControl>
+    
+    
       <br></br>
       
       <h2>Subtitles</h2>
